@@ -23,3 +23,4 @@ Route::get('/register/{id}', 'Auth\RegisterController@showRegistrationForm'); //
 Route::post('/register/{id}', 'Auth\RegisterController@register');
 
 Route::get('/bank/update', 'BankController@showUpdateForm');
+Route::post('/bank/update/{id}', 'BankController@update');

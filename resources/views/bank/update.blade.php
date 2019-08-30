@@ -14,13 +14,14 @@
                         </div>
                     @endif
 
-                    <form action="bank/update" method ="post">
+                    <form action="/bank/update/{{$data_bank->id}}" method ="post">
                         @csrf
                         <label for="basic-url">Bank Name :</label>
-                        <select class="form-control" name="bank_name">
+                        <select class="form-control" name="bank_name" >
                                     <option value="maybeng">maybeng</option>
                                     <option value="cimbeng">cimbeng</option>
                                     <option value="agro beng">agro beng</option>
+                                    
                        </select>
                         @error('package')
                             <span class="invalid-feedback" role="alert">
@@ -29,10 +30,10 @@
                         @enderror
                        <br>
                         <label for="basic-url">Bank Account Number :</label>
-                        <input type="email" class="form-control" placeholder="Bank Account Number" aria-label="email" aria-describedby="basic-addon1" name = "bank_account_number" value ="">
+                        <input type="text" class="form-control" placeholder="Bank Account Number" aria-label="email" aria-describedby="basic-addon1" name = "bank_account_number" value ="{{$data_bank->bank_account_number}}">
                         <br>
                         <label for="basic-url">Bank Account Holder :</label>
-                        <input type="email" class="form-control" placeholder="Bank Account Holder" aria-label="email" aria-describedby="basic-addon1" name = "bank_account_holder" value ="">
+                        <input type="text" class="form-control" placeholder="Bank Account Holder" aria-label="email" aria-describedby="basic-addon1" name = "bank_account_holder" value ="{{$data_bank->bank_account_holder}}">
                         <br>
                        <input type="submit" class="btn btn-primary" value = "Update">
                     </form>
@@ -42,3 +43,4 @@
     </div>
 </div>
 @endsection
+
