@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller
 {
@@ -64,7 +66,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        
+        //dd($data);
         $length_uri = strlen(request()->server('REQUEST_URI'));
         
         if($length_uri>9) //register using other url
@@ -74,6 +76,7 @@ class RegisterController extends Controller
                 'email' => $data['email'],
                 'password' => Hash::make($data['password']),
                 'package_type' => $data['package_type'],
+                'user_id' => $data['user_id'],
             ]);
 
         }
@@ -85,6 +88,7 @@ class RegisterController extends Controller
                 'email' => $data['email'],
                 'password' => Hash::make($data['password']),
                 'package_type' => $data['package_type'],
+                'user_id' => 1,
             ]);
 
         }
@@ -95,5 +99,24 @@ class RegisterController extends Controller
     {
        
         return view('auth.register',['id'=>$id]);
+    }
+
+    public function register(Request $request, $id=null)
+    {
+        // if ($id!=null)
+        // {
+
+            $request->request->add(['user_id' => $id]);
+            
+        // }
+
+        $this->validator($request->all())->validate();
+            
+        event(new Registered($user = $this->create($request->all())));
+
+        $this->guard()->login($user);
+
+        return $this->registered($request, $user)
+                        ?: redirect($this->redirectPath());
     }
 }
