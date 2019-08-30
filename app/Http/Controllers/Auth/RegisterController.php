@@ -91,8 +91,9 @@ class RegisterController extends Controller
         
     }
 
-    public function showRegistrationForm($id)
+    public function showRegistrationForm($id = null)
     {
+       
         return view('auth.register',['id'=>$id]);
     }
 }
