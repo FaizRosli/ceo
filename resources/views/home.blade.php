@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    <a href="/bank/update">update bank account</a>
                 </div>
             </div>
         </div>

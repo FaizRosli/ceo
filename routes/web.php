@@ -18,5 +18,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/register/{id}', 'Auth\RegisterController@showRegistrationForm');
+
+Route::get('/register/{id}', 'Auth\RegisterController@showRegistrationForm'); ///bank/update
 Route::post('/register/{id}', 'Auth\RegisterController@register');
+
+Route::get('/bank/update', 'BankController@showUpdateForm');
